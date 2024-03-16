@@ -29,38 +29,12 @@
   }
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes slide-down {
-  from {
-    opacity: 0.8;
-    transform: translateY(-2.3rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @layer base {
   body {
     @apply bg-LightBodyBg dark:bg-DarkBodyBg transition duration-300;
   }
   header {
     @apply bg-LightBodyBg dark:bg-DarkBodyBg dark:text-DarkTxt transition duration-300;
-  }
-
-  dialog[open]::backdrop {
-    animation: fade-in 450ms forwards;
-  }
-  dialog[open] {
-    animation: slide-down 500ms forwards;
   }
 
   ::-webkit-scrollbar {
@@ -130,32 +104,6 @@
   form,
   textarea {
     @apply transition duration-300;
-  }
-
-  .switch {
-    position: relative;
-    width: 46px;
-    height: 24px;
-    background-color: hsl(235, 17%, 71%);
-    border-radius: 16px;
-  }
-  .switch::before {
-    content: '';
-    position: absolute;
-    left: 2px;
-    bottom: 2px;
-    width: 20px;
-    height: 20px;
-    background: var(--White);
-    border-radius: 50%;
-    transition: all 300ms ease;
-  }
-  input[type='checkbox']:checked + .switch::before {
-    transform: translateX(22px);
-    background: white;
-  }
-  input[type='checkbox']:checked + .switch {
-    background: linear-gradient(45deg, hsl(243, 79%, 68%), hsl(197, 66%, 57%));
   }
 }
 .user {

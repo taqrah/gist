@@ -1,7 +1,6 @@
-'use client'
-import { DeleteIcon, EditIcon, Like, Replies } from './icons';
+'use client';
+import { Avatar, DeleteIcon, EditIcon, Like, Replies } from './icons';
 import { GistProps } from '../types';
-import Image from 'next/image';
 import Button from './button';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
@@ -17,6 +16,7 @@ const Gist: React.FC<GistProps> = ({
 }) => {
 
   const router = useRouter();
+  
   const viewReplies = () => {
     if (!isAuthenticated) {
       toast.error('Please sign up to join the gist', {
@@ -44,7 +44,9 @@ const Gist: React.FC<GistProps> = ({
       <div className='gist grid gap-y-3 md:gap-x-7 bg-LightCardBg dark:bg-DarkCardBg p-6 rounded-lg shadow-sm dark:shadow-md transition duration-300'>
         <div className='user grid xsm:flex items-center xsm:gap-3 gap-2'>
           {' '}
-          <Image src={''} alt='Avatar' className='rounded-full' />
+          <div className=' fill-ModerateBlue dark:fill-SoftBlue hover:fill-LightBlue dark:hover:fill-Blueish'>
+            <Avatar aria-hidden='true' />
+          </div>
           <p className='text-DarkBlue dark:text-Username font-bold'>
             {username}
           </p>
@@ -53,7 +55,9 @@ const Gist: React.FC<GistProps> = ({
               you
             </span>
           )}
-          <span className='dark:text-DarkTxt'>{createdAt}</span>
+          <span className='dark:text-DarkTxt'>
+            {new Date(createdAt).toDateString()}
+          </span>
         </div>
         <p className={`text dark:text-DarkTxt ${currentUser && 'animate-up'}`}>
           {content}

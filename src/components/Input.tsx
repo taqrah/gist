@@ -16,12 +16,12 @@ function Input() {
     generate();
   }, []);
 
-  const copyOtp = () => {
+  const pasteOtp = () => {
     if (otp.join('') === '') {
       return;
     }
-    const otpValue = otp.join('');
-    navigator.clipboard.readText();
+    const otpValue = navigator.clipboard.readText();
+
     toast.success('Copied to clipboard', {
       duration: 1000,
       position: 'top-left',
@@ -60,15 +60,17 @@ function Input() {
               value={char[index]}
               className='otp grid place-content-center rounded-md border-b-2 w-12 h-12 text-center font-bold text-2xl'
             />
-            <label htmlFor='otp' className='sr-only'>Enter your OTP code</label>
+            <label htmlFor='otp' className='sr-only'>
+              Enter your OTP code
+            </label>
           </div>
         ))}
       </div>
       <div className='flex gap-2 justify-center'>
         <button
           type='button'
-          onClick={copyOtp}
-          className='btn text-darkTxt dark:text-lightTxt flex items-center gap-4 p-3 rounded-md hover:shadow-sm w-fit'
+          onClick={pasteOtp}
+          className='dark:text-DarkTxt bg-LightCardBg dark:bg-DarkCardBg flex items-center gap-4 p-3 rounded-md shadow-sm hover:shadow-md w-fit'
         >
           <span className='sr-only'>Paste OTP</span>
           <Copy aria-hidden='true' />
@@ -76,7 +78,7 @@ function Input() {
         <button
           type='button'
           onClick={generate}
-          className='btn text-darkTxt dark:text-lightTxt flex justify-between gap-4 p-3 rounded-md hover:shadow-sm '
+          className='dark:text-DarkTxt bg-LightCardBg dark:bg-DarkCardBg flex items-center gap-4 p-3 rounded-md shadow-sm hover:shadow-md w-fit'
         >
           Resend OTP
         </button>
