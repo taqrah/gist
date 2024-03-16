@@ -1,20 +1,8 @@
-export type Gist = {
+export type Reply = {
   _id: string;
-  score: number;
+  likes: number;
   content: string;
-  replies: [
-    {
-      _id: string;
-      score: number;
-      content: string;
-      replyingTo: string;
-      user: {
-        avatar: string;
-        username: string;
-      };
-      createdAt: string;
-    }
-  ];
+  replyingTo: string;
   user: {
     avatar: string;
     username: string;
@@ -22,11 +10,11 @@ export type Gist = {
   createdAt: string;
 };
 
-export type Reply = {
+export type Gist = {
   _id: string;
-  score: number;
+  likes: number;
   content: string;
-  replyingTo: string;
+  replies: Reply[]
   user: {
     avatar: string;
     username: string;
@@ -47,7 +35,7 @@ export interface GistProps {
    username: string;
    createdAt: string;
    // hasReplies: boolean;
-   // score: number;
+   isAuthenticated: boolean;
    replies: Reply[];
  }
  export interface ReplyProps {
@@ -57,5 +45,6 @@ export interface GistProps {
    id: string;
    username: string;
    createdAt: string;
-   score: number;
+   isAuthenticated: boolean;
+   likes: number;
  }

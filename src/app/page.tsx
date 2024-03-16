@@ -1,4 +1,3 @@
-import Gist from '@/components/gist';
 import Gists from '@/components/gists';
 
 export default function Home() {

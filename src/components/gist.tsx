@@ -1,10 +1,10 @@
-'use client';
-import { useState } from 'react';
+'use client'
 import { DeleteIcon, EditIcon, Like, Replies } from './icons';
 import { GistProps } from '../types';
 import Image from 'next/image';
 import Button from './button';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 const Gist: React.FC<GistProps> = ({
   content,
@@ -13,32 +13,30 @@ const Gist: React.FC<GistProps> = ({
   username,
   createdAt,
   replies,
+  isAuthenticated,
 }) => {
-  const [isEditing, setIsediting] = useState(false);
-  const [user, setUser] = useState(false);
-  const [updatedText, setUpdatedText] = useState<string>(content);
 
+  const router = useRouter();
   const viewReplies = () => {
-    if (!user) {
+    if (!isAuthenticated) {
       toast.error('Please sign up to join the gist', {
         position: 'top-right',
       });
-      return;
+    } else {
+      router.push(`/${id}`);
     }
   };
+
   const likeGist = () => {
-    if (!user) {
+    if (!isAuthenticated) {
       toast.error('Please sign up to like this gist', {
         position: 'top-right',
       });
-      return;
+    } else {
+      toast.success('Liked gist', {
+        position: 'top-right',
+      });
     }
-  };
-
-  const update = (event: React.FormEvent) => {
-    event.preventDefault();
-
-    setIsediting(!isEditing);
   };
 
   return (
@@ -57,33 +55,9 @@ const Gist: React.FC<GistProps> = ({
           )}
           <span className='dark:text-DarkTxt'>{createdAt}</span>
         </div>
-        {!isEditing ? (
-          <p
-            className={`text dark:text-DarkTxt ${currentUser && 'animate-up'}`}
-          >
-            {content}
-          </p>
-        ) : (
-          <form
-            className='edit_field animate-up flex flex-col gap-3'
-            onSubmit={update}
-          >
-            <label htmlFor='update' className='sr-only'>
-              Edit your gist
-            </label>
-            <textarea
-              id='update'
-              rows={3}
-              value={updatedText}
-              className='resize-none w-full border cursor-pointer dark:bg-TextArea dark:border-transparent dark:focus:outline dark:focus:outline-SoftBlue dark:text-PaleBlue caret-ModerateBlue dark:caret-SoftBlue rounded-md p-2 focus:outline-ModerateBlue'
-              onChange={(e) => setUpdatedText(e.target.value)}
-            ></textarea>
-            <Button className='w-auto max-sm:w-full sm:self-end bg-ModerateBlue dark:hover:bg-Blueish hover:bg-LightBlue dark:bg-SoftBlue text-white text-sm uppercase font-medium px-4 py-2.5 rounded-md'>
-              Update
-            </Button>
-          </form>
-        )}
-
+        <p className={`text dark:text-DarkTxt ${currentUser && 'animate-up'}`}>
+          {content}
+        </p>
         {!currentUser ? (
           <div className='reply flex gap-4'>
             <Button
@@ -93,6 +67,7 @@ const Gist: React.FC<GistProps> = ({
               <Replies aria-hidden='true' />
               <span>{replies.length}</span>
             </Button>
+
             <Button
               className='repl flex gap-2 items-center justify-self-end text-ModerateBlue dark:text-SoftBlue fill-ModerateBlue dark:fill-SoftBlue hover:text-LightBlue dark:hover:text-Blueish hover:fill-LightBlue dark:hover:fill-Blueish font-bold'
               onClick={likeGist}
@@ -107,10 +82,8 @@ const Gist: React.FC<GistProps> = ({
               <DeleteIcon aria-hidden='true' />
               <span>Delete</span>
             </Button>
-            <Button
-              className='reply flex gap-2 items-center justify-self-end text-ModerateBlue dark:text-SoftBlue fill-ModerateBlue dark:fill-SoftBlue hover:text-LightBlue dark:hover:text-Blueish hover:fill-LightBlue dark:hover:fill-Blueish font-bold'
-              onClick={() => setIsediting((prev) => !prev)}
-            >
+
+            <Button className='reply flex gap-2 items-center justify-self-end text-ModerateBlue dark:text-SoftBlue fill-ModerateBlue dark:fill-SoftBlue hover:text-LightBlue dark:hover:text-Blueish hover:fill-LightBlue dark:hover:fill-Blueish font-bold'>
               <EditIcon aria-hidden='true' />
               <span>Edit</span>
             </Button>

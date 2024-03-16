@@ -28,6 +28,7 @@ async function Gists() {
             username={comment.user.username}
             currentUser={comment.user._id === userId}
             replies={comment.replies}
+            isAuthenticated={!!userId}
           />
         ))
       )}
