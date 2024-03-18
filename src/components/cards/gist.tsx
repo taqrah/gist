@@ -55,7 +55,8 @@ const Gist: React.FC<GistProps> = ({
             </span>
           )}
           <span className='dark:text-DarkTxt'>
-            {new Date(createdAt).toDateString()}
+            {/* {new Date(createdAt).toDateString()} */}
+            {createdAt}
           </span>
         </div>
         <p className={`text dark:text-DarkTxt ${currentUser && 'animate-up'}`}>

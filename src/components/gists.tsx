@@ -2,16 +2,19 @@ import { Gist as GistType } from '@/types';
 import Gist from './cards/gist';
 import { auth } from '@clerk/nextjs';
 
+import gists from '../data/db.json';
+
 async function getGists() {
-  const res = await fetch('https://comment-section-pk6h.onrender.com/comments');
+  // this is a free instance on render so it takes at least 50s to startup 
+  // which may lead to vercel throwing a timeout error when '/' page is visited
+  const res = await fetch('https://comment-section-pk6h.onrender.com/comments'); 
 
   return res.json();
 }
 
 async function Gists() {
   const { userId } = auth();
-
-  const gists = await getGists();
+  // const gists = await getGists();
 
   console.log(gists);
 
@@ -22,15 +25,15 @@ async function Gists() {
           An error occured loading your feed
         </div>
       ) : (
-        gists.comments.map((comment: GistType) => (
+        gists.map((gist: GistType) => (
           <Gist
-            id={comment._id}
-            key={comment._id}
-            content={comment.content}
-            createdAt={comment.createdAt}
-            username={comment.user.username}
-            currentUser={comment.user.id === userId}
-            replies={comment.replies}
+            id={gist._id}
+            key={gist._id}
+            content={gist.content}
+            createdAt={gist.createdAt}
+            username={gist.user.username}
+            currentUser={gist.user.id === userId}
+            replies={gist.replies}
             isAuthenticated={!!userId}
           />
         ))

@@ -1,5 +1,5 @@
 export type Reply = {
-  _id: string;
+  id: string;
   likes: number;
   content: string;
   replyingTo: string;
