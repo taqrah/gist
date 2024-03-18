@@ -1,12 +1,11 @@
-import Input from '@/components/Input';
-import PopUp from '@/components/modal';
-import { currentUser } from '@clerk/nextjs';
-import { customAlphabet } from 'nanoid';
-import oauthSignature from 'oauth-signature';
 import { toast } from 'sonner';
-
+import { customAlphabet } from 'nanoid';
+import { currentUser } from '@clerk/nextjs';
+import oauthSignature from 'oauth-signature';
+import Verification from '@/components/verification';
 
 const sendDM = async (recipientId: string, otpCode: string) => {
+  'use server'
   // list of characters for nanoid to generate from
   const alphabet ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   // generate 32bit string from the above characters
@@ -100,18 +99,12 @@ const sendDM = async (recipientId: string, otpCode: string) => {
 
 async function Page() {
   const user = await currentUser();
-
-  if (user) {
-    const usersTwitterId = user.externalAccounts[0].externalId;
-    console.log(usersTwitterId.toString());
-    // sendDM(usersTwitterId, '23104');
-    // sendOTP(usersTwitterId, '23104');
-  }
+  const usersTwitterId = user?.externalAccounts[0].externalId;
 
   return (
     <>
-      <div className='grid place-content-center min-h-[84vh]'>
-        <Input />
+      <div className='grid place-content-center min-h-[85vh]'>
+        <Verification sendDM={sendDM} recipientId={usersTwitterId}/>
       </div>
     </>
   );

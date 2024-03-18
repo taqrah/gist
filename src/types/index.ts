@@ -16,6 +16,7 @@ export type Gist = {
   content: string;
   replies: Reply[]
   user: {
+    id: string;
     avatar: string;
     username: string;
   };

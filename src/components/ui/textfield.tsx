@@ -27,7 +27,7 @@ const TextField = () => {
         onChange={(e) => setReply(e.target.value)}
       />
       <div className=' fill-ModerateBlue dark:fill-SoftBlue hover:fill-LightBlue dark:hover:fill-Blueish'>
-        <Avatar aria-hidden='true'/>
+        <Avatar aria-hidden='true' />
       </div>
       <Button className='submit text-sm h-fit px-7 py-3 justify-self-end bg-ModerateBlue dark:hover:bg-Blueish dark:bg-SoftBlue hover:bg-LightBlue text-white font-medium uppercase'>
         reply

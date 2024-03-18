@@ -1,11 +1,11 @@
 'use client';
 import Link from 'next/link';
-import { Home } from './icons';
+import { Home } from '../ui/icons';
 import { UserButton } from '@clerk/nextjs';
-import ThemeSwitch from './switch';
+import ThemeSwitch from '../ui/switch';
 import { usePathname } from 'next/navigation';
 
-function Header({isAuthenticated}:{isAuthenticated: boolean}) {
+function Header({ isAuthenticated }: { isAuthenticated: boolean }) {
   const pathname = usePathname();
   const isVerifying = pathname.includes('/verify');
 

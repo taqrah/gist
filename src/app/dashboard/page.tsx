@@ -13,10 +13,6 @@ async function Dashboard() {
     );
   }
 
-  const getImageUrl = () => {
-    return user?.imageUrl || '';
-  };
-
   return (
     <div className='min-h-[85vh] grid place-content-center'>
       <h1 className='mb-8 text-center text-3xl font-bold'>

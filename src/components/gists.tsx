@@ -1,4 +1,5 @@
-import Gist from './gist';
+import { Gist as GistType } from '@/types';
+import Gist from './cards/gist';
 import { auth } from '@clerk/nextjs';
 
 async function getGists() {
@@ -16,17 +17,19 @@ async function Gists() {
 
   return (
     <>
-      {gists.comments.length === 0 ? (
-        <div>Sign up to start a gist</div>
+      {!gists ? (
+        <div className='grid place-content-center min-h-[85vh] dark:text-DarkTxt'>
+          An error occured loading your feed
+        </div>
       ) : (
-        gists.comments.map((comment: any) => (
+        gists.comments.map((comment: GistType) => (
           <Gist
             id={comment._id}
             key={comment._id}
             content={comment.content}
             createdAt={comment.createdAt}
             username={comment.user.username}
-            currentUser={comment.user._id === userId}
+            currentUser={comment.user.id === userId}
             replies={comment.replies}
             isAuthenticated={!!userId}
           />

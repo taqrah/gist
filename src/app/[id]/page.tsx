@@ -1,4 +1,4 @@
-import TextField from '@/components/textfield';
+import TextField from '@/components/ui/textfield';
 
 function page({ params }: any) {
   const id = params.id;

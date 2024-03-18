@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
-function Input() {
+function OtpForm() {
   const emptyOtp = new Array(4).fill('');
   const [otp, setOtp] = useState<string[]>(emptyOtp);
   const [previousOTP, setPreviousOtp] = useState<string | null>('2222');
@@ -11,14 +11,10 @@ function Input() {
   const router = useRouter();
 
   const generate = () => {
-    // destroy previously sent otp before sending another
-    setPreviousOtp(null);
     // generate new otp
     const otp = Array.from({ length: 4 }, () => Math.floor(Math.random() * 9));
     // store generated otp for future comparison
-    setPreviousOtp(otp.toString());
-    // send generated otp to users twitter dm
-    // sendOTP(otp);
+    setPreviousOtp(otp.join(''));
   };
 
   const verify = (event: React.FormEvent<HTMLFormElement>) => {
@@ -88,15 +84,17 @@ function Input() {
   }, [otp]);
 
   return (
-    <form onSubmit={verify} className='flex flex-col gap-8'>
+    <form onSubmit={verify} className='animate-up flex flex-col gap-8'>
+      <small className='dark:text-DarkTxt'>default otp is 2222</small>
       <div className='flex gap-4'>
         {otp.map((num, index) => (
           <div key={index}>
             <input
-              ref={(el) => (inputRefs.current[index] = el)}
+              ref={(element) => (inputRefs.current[index] = element)}
               id={`otp-${index}`}
               type='number'
               value={num}
+              autoFocus={index === 0}
               placeholder='-'
               onChange={(event) => handleChange(event, index)}
               onKeyDown={(event) => handleKeyDown(event, index)}
@@ -127,4 +125,4 @@ function Input() {
   );
 }
 
-export default Input;
+export default OtpForm;

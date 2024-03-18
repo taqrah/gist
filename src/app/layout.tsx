@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Rubik } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
 import './globals.css';
-import Navbar from '@/components/navigation';
+import Navbar from '@/components/shared/navigation';
 import { Toaster } from 'sonner';
 
 const rubik = Rubik({ subsets: ['latin'] });

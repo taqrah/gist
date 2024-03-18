@@ -4,7 +4,7 @@ import Header from './header';
 const Navbar: React.FC = () => {
   const { userId } = auth();
 
-  const isAuthenticated = !!userId
+  const isAuthenticated = !!userId;
 
   return <Header isAuthenticated={isAuthenticated} />;
 };

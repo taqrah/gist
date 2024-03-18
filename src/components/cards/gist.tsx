@@ -1,7 +1,7 @@
 'use client';
-import { Avatar, DeleteIcon, EditIcon, Like, Replies } from './icons';
-import { GistProps } from '../types';
-import Button from './button';
+import { Avatar, DeleteIcon, EditIcon, Like, Replies } from '../ui/icons';
+import { GistProps } from '../../types';
+import Button from '../ui/button';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
@@ -14,9 +14,8 @@ const Gist: React.FC<GistProps> = ({
   replies,
   isAuthenticated,
 }) => {
-
   const router = useRouter();
-  
+
   const viewReplies = () => {
     if (!isAuthenticated) {
       toast.error('Please sign up to join the gist', {
